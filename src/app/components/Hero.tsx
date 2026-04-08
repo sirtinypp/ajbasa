@@ -71,6 +71,7 @@ export default function Hero() {
               width={288}
               height={288}
               className="relative z-10 rounded-full object-cover w-full h-full"
+              style={{ objectPosition: 'center 15%' }}
               preload
             />
           </div>

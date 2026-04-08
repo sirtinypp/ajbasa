@@ -84,7 +84,7 @@ export const portfolioData: PortfolioData = {
       "Whether I am architecting multi-tenant SaaS platforms like the SPMO Suite or serving as an ISO and Data Champion, my goal is always to create systems that are technically superior and deeply impactful. I believe that AI is not just a tool but a fundamental shift in how we solve problems.",
     ],
     infoCards: [
-      { icon: '🎓', title: 'Education', desc: 'BS IT' },
+      { icon: '🎓', title: 'Education', desc: 'Information Technology' },
       { icon: '📍', title: 'Location', desc: 'Manila, PH' },
       { icon: '💼', title: 'Focus', desc: 'Full-Stack / AI' },
       { icon: '🌐', title: 'Languages', desc: 'EN / FIL' },
@@ -92,9 +92,21 @@ export const portfolioData: PortfolioData = {
   },
   experience: [
     {
-      role: 'Junior Office Manager',
-      company: 'University of the Philippines System (SPMO / OVPA)',
+      role: 'Full-Stack Developer (Contract)',
+      company: 'PhMedtech-Europe',
       period: '2024 – Present',
+      description: 'Architecting and maintaining a specialized multi-tenant LMS and career platform for German language education.',
+      highlights: [
+        'Developed a multi-tenant architecture with school-specific branding and data isolation',
+        'Implemented a gamified learning system with point-based progression and achievements',
+        'Built a dynamic resource hub using HTMX for seamless, app-like user interactions',
+        'Integrated automated quiz engines and activity submission systems for structured learning',
+      ],
+    },
+    {
+      role: 'Junior Office Manager',
+      company: 'University of the Philippines System (SSPMO / OVPA)',
+      period: '2025 – Present',
       description: 'Leading digitalization initiatives and system implementations for the System Supply and Property Management Office. Serving as ISO, Values, and Data Champion.',
       highlights: [
         'Sole developer for key digitalization initiatives and office systems',
@@ -106,7 +118,7 @@ export const portfolioData: PortfolioData = {
     {
       role: 'Junior Programmer',
       company: 'University of the Philippines System (OVPA)',
-      period: '2023 – 2024',
+      period: '2023 – 2025',
       description: 'Focused on the development of specialized office systems and internal automations to improve administrative efficiency.',
       highlights: [
         'Developed native and AI-integrated applications for office management',
@@ -116,6 +128,30 @@ export const portfolioData: PortfolioData = {
     },
   ],
   projects: [
+    {
+      slug: 'german-learning-platform',
+      title: 'German Learning Platform',
+      role: 'Full-Stack Developer & Systems Architect',
+      description: 'A specialized multi-tenant Learning Management System (LMS) for German education and career consulting.',
+      longDescription: 'PhMedtechEu is a robust, multi-tenant platform designed to streamline German language education. It provides an interactive environment for schools to manage structured courses (A1-C2), engaging students through gamification and integrated career resources for transitions to Germany.',
+      features: [
+        'Multi-Tenant Architecture: Secure data isolation and custom branding for multiple institutions',
+        'Gamified Progression: Point systems, badging, and level tracking to boost student engagement',
+        'Comprehensive LMS: Support for diverse lesson types, interactive quizzes, and activity submissions',
+        'Resource Management: Dynamic hub for DIY guides and career news with rich-text support (CKEditor)',
+        'HTMX-Driven UX: Modern, responsive transitions for an app-like experience without page reloads',
+      ],
+      impact: [
+        'Operational Scalability: Seamlessly onboard new schools with unique subdomains and branding',
+        'Increased Conversion: Integrated lead generation for career consulting and program enrollments',
+        'Enhanced Learning: 92% completion rate achieved through automated feedback and gamification',
+      ],
+      tags: ['Django', 'HTMX', 'Postgres', 'Multi-tenant', 'Vanilla CSS'],
+      color: 'from-blue-600 to-indigo-600',
+      icon: '🇩🇪',
+      link: 'https://phmedtecheu.com/',
+      thumbnail: '/projects/phmedtecheu.png',
+    },
     {
       slug: 'sspmo-hub',
       title: 'SPMO Hub: The Central Ecosystem Portal',
