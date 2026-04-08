@@ -47,12 +47,6 @@ export default function Contact() {
                 value: identity.github.replace('https://', ''),
                 href: identity.github,
               },
-              {
-                icon: '💼',
-                label: 'LinkedIn',
-                value: identity.linkedin.replace('https://', ''),
-                href: identity.linkedin,
-              },
             ].map((item) => (
               <a
                 key={item.label}

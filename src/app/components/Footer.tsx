@@ -31,14 +31,7 @@ export default function Footer() {
             >
               GitHub
             </a>
-            <a
-              href={identity.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-text-muted hover:text-accent-light transition-colors"
-            >
-              LinkedIn
-            </a>
+
             <a
               href={`mailto:${identity.email}`}
               className="text-sm text-text-muted hover:text-accent-light transition-colors"

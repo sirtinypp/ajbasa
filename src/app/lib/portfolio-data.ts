@@ -37,7 +37,6 @@ export interface PortfolioData {
     title: string;
     email: string;
     github: string;
-    linkedin: string;
   };
   hero: {
     shortBio: string;
@@ -66,9 +65,8 @@ export const portfolioData: PortfolioData = {
     firstName: 'Aaron',
     lastName: 'Basa',
     title: 'Full-Stack Developer + AI Specialist',
-    email: 'aaronchristianbasa@gmail.com',
-    github: 'https://github.com/aaron-basa',
-    linkedin: 'https://linkedin.com/in/aaron-basa',
+    email: 'acjbasa00@gmail.com',
+    github: 'https://github.com/sirtinypp',
   },
   hero: {
     shortBio: 'I craft robust, AI-powered web applications and scalable enterprise systems that bridge the gap between traditional governance and modern efficiency.',
