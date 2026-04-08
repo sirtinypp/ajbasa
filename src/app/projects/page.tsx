@@ -35,7 +35,7 @@ export default function ProjectsPage() {
         </section>
 
         {/* Projects List */}
-        <section className="max-w-7xl mx-auto px-6 space-y-40">
+        <section className="max-w-7xl mx-auto px-6 pt-24 space-y-40">
           {projects.map((project, index) => (
             <div 
               key={project.slug} 
