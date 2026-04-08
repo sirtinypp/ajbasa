@@ -1,9 +1,16 @@
+'use client';
+
+import { useState } from 'react';
 import { portfolioData } from '../lib/portfolio-data';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Projects() {
   const { projects } = portfolioData;
+  const [activeTab, setActiveTab] = useState<'enterprise' | 'web-app'>('enterprise');
+
+  const filteredProjects = projects.filter(p => p.category === activeTab);
+
   return (
     <section id="projects" className="relative py-32 overflow-hidden">
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--gradient-start)] rounded-full opacity-[0.04] blur-[120px] pointer-events-none" />
@@ -14,14 +21,34 @@ export default function Projects() {
           <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mt-3">
             Things I&apos;ve built
           </h2>
-          <p className="text-text-secondary mt-4 max-w-xl mx-auto">
-            A selection of projects that showcase my approach to solving
-            real-world problems with clean, scalable code.
-          </p>
+          
+          {/* Tab Switcher */}
+          <div className="flex items-center justify-center gap-2 p-1 bg-surface/50 backdrop-blur-md rounded-xl border border-surface-border w-fit mx-auto mt-8">
+            <button
+              onClick={() => setActiveTab('enterprise')}
+              className={`px-5 py-2 rounded-lg text-xs font-bold transition-all duration-300 ${
+                activeTab === 'enterprise' 
+                  ? 'bg-accent text-white' 
+                  : 'text-text-muted hover:text-text-primary'
+              }`}
+            >
+              Enterprise
+            </button>
+            <button
+              onClick={() => setActiveTab('web-app')}
+              className={`px-5 py-2 rounded-lg text-xs font-bold transition-all duration-300 ${
+                activeTab === 'web-app' 
+                  ? 'bg-accent text-white' 
+                  : 'text-text-muted hover:text-text-primary'
+              }`}
+            >
+              Web Apps
+            </button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <div key={project.title} className="project-card group flex flex-col">
               {/* Image / Gradient Header */}
               <div className="relative h-48 w-full overflow-hidden">

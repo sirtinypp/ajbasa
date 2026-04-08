@@ -10,7 +10,8 @@ export interface Project {
   color: string;
   icon: string;
   link: string;
-  thumbnail?: string; // Optional image field
+  thumbnail?: string;
+  category: 'enterprise' | 'web-app';
 }
 
 export interface Experience {
@@ -151,6 +152,7 @@ export const portfolioData: PortfolioData = {
       icon: '🇩🇪',
       link: 'https://phmedtecheu.com/',
       thumbnail: '/projects/phmedtecheu.png',
+      category: 'enterprise',
     },
     {
       slug: 'sspmo-hub',
@@ -174,6 +176,7 @@ export const portfolioData: PortfolioData = {
       icon: '🏛️',
       link: 'https://sspmo.up.edu.ph',
       thumbnail: '/projects/sspmo-hub.png',
+      category: 'enterprise',
     },
     {
       slug: 'gamit-asset-core',
@@ -198,6 +201,7 @@ export const portfolioData: PortfolioData = {
       icon: '⚙️',
       link: 'https://gamit-sspmo.up.edu.ph',
       thumbnail: '/projects/gamit-asset-core.png',
+      category: 'enterprise',
     },
     {
       slug: 'lipad-logistics',
@@ -222,6 +226,7 @@ export const portfolioData: PortfolioData = {
       icon: '🕊️',
       link: 'https://lipad-sspmo.up.edu.ph',
       thumbnail: '/projects/lipad-logistics.png',
+      category: 'enterprise',
     },
     {
       slug: 'suplay-inventory',
@@ -246,6 +251,53 @@ export const portfolioData: PortfolioData = {
       icon: '📦',
       link: 'https://suplay-sspmo-up.edu.ph',
       thumbnail: '/projects/suplay-inventory.png',
+      category: 'enterprise',
+    },
+    {
+      slug: 'ai-prompt-studio',
+      title: 'AI Prompt Studio',
+      role: 'Full-Stack Developer',
+      description: 'A playground for testing and versioning AI prompts across multiple LLMs.',
+      longDescription: 'AI Prompt Studio is a specialized tool for AI engineers to iterate, compare, and version-control prompts. It features a unified interface for testing against OpenAI, Anthropic, and local models via Ollama.',
+      features: [
+        'Multi-Provider Support: Test prompts against GPT-4, Claude 3, and Llama 3',
+        'Parameter Tuning: Real-time control over temperature, top-p, and frequency penalties',
+        'History & Branching: Save and revert to previous prompt versions like Git',
+        'Exportable Templates: Generate code snippets for direct integration into apps',
+      ],
+      impact: [
+        'Workflow Optimization: Reduced prompt engineering cycles by 50% for internal teams',
+        'Cost Management: Integrated token usage tracking and estimation',
+        'Collaboration: Shared prompt libraries for improved team consistency',
+      ],
+      tags: ['Next.js', 'OpenAI API', 'Supabase', 'Framer Motion'],
+      color: 'from-cyan-500 to-blue-500',
+      icon: '✨',
+      link: '#',
+      category: 'web-app',
+    },
+    {
+      slug: 'neural-viz-dashboard',
+      title: 'NeuralViz Analytics',
+      role: 'Frontend Specialist',
+      description: 'A high-performance visualization dashboard for monitoring neural network training metrics.',
+      longDescription: 'NeuralViz is a real-time analytics dashboard designed for deep learning researchers. It provides low-latency visualizations of loss curves, weight distributions, and gradient flows during model training.',
+      features: [
+        'Real-time Streaming: WebSocket-based data feeds with minimal overhead',
+        'Interactive Charts: Deep-zoom capabilities for high-frequency time-series data',
+        'Multi-Run Comparison: Overlay multiple training runs for easy benchmarking',
+        'GPU Monitoring: Integrated telemetry for hardware utilization and thermal states',
+      ],
+      impact: [
+        'Debugging Speed: Accelerated identification of vanishing gradients and model divergence',
+        'Insight Generation: Intuitive visualization of complex network internal states',
+        'Accessibility: Simplified expert-level diagnostics for non-specialist stakeholders',
+      ],
+      tags: ['TypeScript', 'Three.js', 'Socket.io', 'D3.js'],
+      color: 'from-rose-500 to-orange-500',
+      icon: '📊',
+      link: '#',
+      category: 'web-app',
     },
   ],
   skills: [

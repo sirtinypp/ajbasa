@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { portfolioData } from '../lib/portfolio-data';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -6,6 +9,10 @@ import Image from 'next/image';
 
 export default function ProjectsPage() {
   const { projects } = portfolioData;
+  const [activeTab, setActiveTab] = useState<'enterprise' | 'web-app'>('enterprise');
+
+  const filteredProjects = projects.filter(p => p.category === activeTab);
+
   return (
     <div className="noise-bg min-h-screen flex flex-col">
       <Navbar />
@@ -27,20 +34,44 @@ export default function ProjectsPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary mb-6 tracking-tight">
               Strategic <span className="gradient-text">Systems</span> & Innovations
             </h1>
-            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed mb-12">
               A deep dive into the architectures and solutions I&apos;ve engineered 
               for the University of the Philippines System and beyond.
             </p>
+
+            {/* Tab Switcher */}
+            <div className="flex items-center justify-center gap-4 p-1 bg-surface/50 backdrop-blur-md rounded-2xl border border-surface-border w-fit mx-auto mb-12">
+              <button
+                onClick={() => setActiveTab('enterprise')}
+                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  activeTab === 'enterprise' 
+                    ? 'bg-accent text-white shadow-lg shadow-accent/20' 
+                    : 'text-text-muted hover:text-text-primary hover:bg-surface-light'
+                }`}
+              >
+                Enterprise Systems
+              </button>
+              <button
+                onClick={() => setActiveTab('web-app')}
+                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  activeTab === 'web-app' 
+                    ? 'bg-accent text-white shadow-lg shadow-accent/20' 
+                    : 'text-text-muted hover:text-text-primary hover:bg-surface-light'
+                }`}
+              >
+                Web Apps & Tools
+              </button>
+            </div>
           </div>
         </section>
 
         {/* Projects List */}
         <section className="max-w-7xl mx-auto px-6 pt-24 space-y-40">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <div 
               key={project.slug} 
               id={project.slug}
-              className={`grid lg:grid-cols-12 gap-12 lg:gap-20 items-center scroll-mt-32`}
+              className={`grid lg:grid-cols-12 gap-12 lg:gap-20 items-center scroll-mt-32 animate-fade-in`}
             >
               {/* Project Info */}
               <div className={`lg:col-span-5 space-y-8 animate-fade-up ${index % 2 !== 0 ? 'lg:order-last' : ''}`}>
