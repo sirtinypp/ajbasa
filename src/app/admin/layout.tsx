@@ -45,6 +45,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     { href: '/admin/projects', icon: '🚀', label: 'Projects' },
     { href: '/admin/content', icon: '📝', label: 'Content' },
     { href: '/admin/inquiries', icon: '📩', label: 'Inquiries' },
+    { href: '/admin/ai', icon: '🤖', label: 'AI Assistant' },
     { href: '/admin/settings', icon: '⚙️', label: 'Settings' },
     { href: '/admin/migrate', icon: '🧬', label: 'Sync Data' },
   ];

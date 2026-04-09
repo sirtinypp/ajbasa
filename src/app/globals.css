@@ -487,8 +487,43 @@ body {
   color: var(--text-muted);
 }
 
-/* ======= FOOTER ======= */
-.footer-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--surface-border), var(--accent), var(--surface-border), transparent);
+/* ======= MARKDOWN STYLES ======= */
+.markdown-container {
+  @apply space-y-3;
+}
+
+.markdown-container p {
+  @apply mb-2 last:mb-0;
+}
+
+.markdown-container ul, .markdown-container ol {
+  @apply pl-4 my-2 space-y-1;
+}
+
+.markdown-container ul {
+  @apply list-disc;
+}
+
+.markdown-container ol {
+  @apply list-decimal;
+}
+
+.markdown-container strong {
+  @apply font-bold text-accent-light;
+}
+
+.markdown-container code {
+  @apply px-1.5 py-0.5 rounded bg-surface border border-surface-border font-mono text-[10px] text-accent-light;
+}
+
+.markdown-container blockquote {
+  @apply border-l-2 border-accent pl-4 italic text-text-muted;
+}
+
+.markdown-container h1, .markdown-container h2, .markdown-container h3 {
+  @apply font-bold text-text-primary mt-4 mb-2;
+}
+
+.markdown-container a {
+  @apply text-accent hover:underline;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 
 export default function SettingsPage() {
@@ -8,17 +8,16 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [configs, setConfigs] = useState<any>({});
 
-  const fetchConfigs = async () => {
-    setLoading(true);
+  const fetchConfigs = useCallback(async () => {
     const { data } = await supabase.from('site_configs').select('*');
     const mapped = data?.reduce((acc: any, curr: any) => ({ ...acc, [curr.key]: curr.data }), {});
     setConfigs(mapped || {});
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     fetchConfigs();
-  }, []);
+  }, [fetchConfigs]);
 
   const updateConfig = (key: string, subKey: string, value: any) => {
     setConfigs((prev: any) => ({
@@ -45,10 +44,10 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-12 animate-fade-up pb-20">
-      <div className="flex justify-between items-center">
+      <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md py-6 mb-8 border-b border-surface-border flex justify-between items-center">
         <div>
           <h2 className="text-3xl font-bold">Site Settings</h2>
-          <p className="text-text-secondary">Update your personal identity and core site content.</p>
+          <p className="text-text-secondary text-sm">Update your personal identity and core site content.</p>
         </div>
         <button 
           onClick={saveSettings} 

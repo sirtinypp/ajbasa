@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { portfolioData } from '../lib/portfolio-data';
 import Link from 'next/link';
 import Image from 'next/image';
 

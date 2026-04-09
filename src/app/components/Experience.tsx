@@ -15,7 +15,7 @@ export default function Experience({ experienceList = [] }: { experienceList?: a
 
         <div className="max-w-3xl mx-auto space-y-10">
           {experienceList.map((exp: any) => (
-            <div key={exp.role + exp.company} className="timeline-item">
+            <div key={exp.id} className="timeline-item">
               <div className="card p-7 glow-border">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
                   <div>

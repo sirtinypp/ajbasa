@@ -89,9 +89,25 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
 
   return (
     <div className="max-w-4xl mx-auto pb-20 animate-fade-up">
-      <div className="flex items-center gap-4 mb-8">
-        <Link href="/admin/projects" className="text-text-muted hover:text-text-primary">← Projects</Link>
-        <h2 className="text-3xl font-bold">{isNew ? 'Create New Project' : 'Edit Project'}</h2>
+      <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md py-6 mb-8 border-b border-surface-border flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Link href="/admin/projects" className="text-text-muted hover:text-text-primary">← Projects</Link>
+          <h2 className="text-3xl font-bold">{isNew ? 'Create New Project' : 'Edit Project'}</h2>
+        </div>
+        <div className="flex gap-4">
+          <Link href="/admin/projects" className="btn-outline">Cancel</Link>
+          <button 
+            type="button" 
+            onClick={(e) => {
+              const form = document.querySelector('form');
+              form?.requestSubmit();
+            }} 
+            disabled={saving} 
+            className="btn-primary min-w-[150px] justify-center"
+          >
+            {saving ? 'Saving...' : 'Save Project'}
+          </button>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

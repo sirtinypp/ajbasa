@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import Link from 'next/link';
 
@@ -16,8 +16,7 @@ export default function ProjectsManagement() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchProjects = async () => {
-    setLoading(true);
+  const fetchProjects = useCallback(async () => {
     const { data, error } = await supabase
       .from('projects')
       .select('id, title, role, category, slug')
@@ -25,11 +24,11 @@ export default function ProjectsManagement() {
 
     if (!error) setProjects(data || []);
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [fetchProjects]);
 
   async function deleteProject(id: string) {
     if (!confirm('Are you sure? This will permanently delete this project.')) return;

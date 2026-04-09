@@ -56,7 +56,9 @@ export default function MigratePage() {
       addLog(`✓ ${projectData.length} projects migrated.`);
 
       // 3. Migrate Experience
-      addLog('Migrating experience...');
+      addLog('Clearing and migrating experience...');
+      await supabase.from('experience').delete().neq('id', '00000000-0000-0000-0000-000000000000'); // Clear all
+      
       const experienceData = portfolioData.experience.map((e, index) => ({
         role: e.role,
         company: e.company,
@@ -66,12 +68,14 @@ export default function MigratePage() {
         order_index: index
       }));
       
-      const { error: eError } = await supabase.from('experience').upsert(experienceData);
+      const { error: eError } = await supabase.from('experience').insert(experienceData);
       if (eError) throw new Error(`Experience error: ${eError.message}`);
       addLog(`✓ ${experienceData.length} experience entries migrated.`);
 
       // 4. Migrate Achievements
-      addLog('Migrating achievements...');
+      addLog('Clearing and migrating achievements...');
+      await supabase.from('achievements').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      
       const achievementData = portfolioData.achievements.map(a => ({
         title: a.title,
         year: a.year,
@@ -79,12 +83,14 @@ export default function MigratePage() {
         icon: a.icon
       }));
       
-      const { error: aError } = await supabase.from('achievements').upsert(achievementData);
+      const { error: aError } = await supabase.from('achievements').insert(achievementData);
       if (aError) throw new Error(`Achievements error: ${aError.message}`);
       addLog(`✓ ${achievementData.length} achievements migrated.`);
 
       // 5. Migrate Events
-      addLog('Migrating events...');
+      addLog('Clearing and migrating events...');
+      await supabase.from('events').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      
       const eventData = portfolioData.events.map(ev => ({
         title: ev.title,
         date: ev.date,
@@ -92,7 +98,7 @@ export default function MigratePage() {
         category: ev.category
       }));
       
-      const { error: evError } = await supabase.from('events').upsert(eventData);
+      const { error: evError } = await supabase.from('events').insert(eventData);
       if (evError) throw new Error(`Events error: ${evError.message}`);
       addLog(`✓ ${eventData.length} events migrated.`);
 

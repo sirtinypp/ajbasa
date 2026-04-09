@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 
 interface Inquiry {
@@ -18,8 +18,7 @@ export default function InquiriesPage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Inquiry | null>(null);
 
-  const fetchInquiries = async () => {
-    setLoading(true);
+  const fetchInquiries = useCallback(async () => {
     const { data, error } = await supabase
       .from('inquiries')
       .select('*')
@@ -28,11 +27,11 @@ export default function InquiriesPage() {
     if (error) console.error('Error fetching inquiries:', error);
     else setInquiries(data || []);
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     fetchInquiries();
-  }, []);
+  }, [fetchInquiries]);
 
   async function markAsRead(id: string) {
     const { error } = await supabase
