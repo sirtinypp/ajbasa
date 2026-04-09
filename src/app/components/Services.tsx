@@ -6,52 +6,31 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
-const DEFAULT_SERVICES = [
+const CORE_PILLARS = [
   { 
-    id: 'ams', 
-    title: 'Asset Management System', 
-    description: 'A comprehensive solution for tracking enterprise hardware and assets with automated lifecycle and depreciation reporting.',
-    icon: '📦',
-    features: ['Real-time lifecycle tracking', 'Automated audit trails', 'Precision depreciation logs']
+    id: 'ops',
+    title: 'Operations & Resource Suites', 
+    description: 'High-performance internal tools designed to automate complex workflows. Includes specialized systems for Asset Management (AMS), Workforce (HRIS), and Knowledge (LMS).',
+    icon: '🏢',
+    features: ['Strategic automation', 'Multi-tenant architectures', 'Precision reporting']
   },
   { 
-    id: 'hris', 
-    title: 'HR Information & Management System', 
-    description: 'Centralize employee records, documentation, and performance reviews in a secure, high-performance portal.',
-    icon: '👥',
-    features: ['Employee profile management', 'Automated onboarding flows', 'Secure document storage']
-  },
-  { 
-    id: 'lms', 
-    title: 'Learning Management System', 
-    description: 'Scalable educational platforms for corporate training, onboarding, or private educational institutions.',
-    icon: '🎓',
-    features: ['Progress tracking', 'Multimedia lesson delivery', 'Automated certification']
-  },
-  { 
-    id: 'ai-bot', 
-    title: 'Custom AI Chatbot Integration', 
-    description: 'Tailored LLM-powered assistants designed to handle customer support or internal workflow automation.',
+    id: 'ai-id',
+    title: 'AI & Identity Systems', 
+    description: 'Leveraging next-gen technology to secure and scale operations. From custom AI Chatbot integrations to biometric Time Recording (DTR) with Facial Recognition.',
     icon: '🤖',
-    features: ['Context-aware responses', 'Seamless API integration', 'Custom personality tuning']
+    features: ['Biometric security', 'LLM-powered automation', 'Real-time monitoring']
+  },
+  { 
+    id: 'growth',
+    title: 'Digital Business Growth', 
+    description: 'End-to-end digital ecosystems for rapid scaling. Automated Event Registration, bespoke Virtual Stores, and high-conversion Professional Web presences.',
+    icon: '🚀',
+    features: ['Ecommerce ecosystems', 'Scalable registration', 'Performance optimization']
   }
 ];
 
 export default function Services() {
-  const [services, setServices] = useState<any[]>(DEFAULT_SERVICES);
-
-  useEffect(() => {
-    async function fetchServices() {
-      const { data } = await supabase.from('site_configs').select('data').eq('key', 'services').single();
-      if (data?.data && data.data.length > 0) {
-        setServices(data.data);
-      }
-    }
-    fetchServices();
-  }, []);
-
-  if (services.length === 0) return null;
-
   return (
     <section id="services" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
@@ -59,7 +38,7 @@ export default function Services() {
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="section-heading mb-4"
+            className="section-heading mb-4 text-accent"
           >
             Solutions Suite
           </motion.span>
@@ -69,7 +48,7 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            Enterprise-Grade <span className="gradient-text">Systems</span>
+            Strategic <span className="gradient-text">Systems</span> Architecture
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -77,29 +56,21 @@ export default function Services() {
             transition={{ delay: 0.2 }}
             className="text-text-secondary max-w-2xl leading-relaxed"
           >
-            I architect and deploy specialized internal tools and high-performance applications designed to automate complex business workflows.
+            I architect and deploy specialized enterprise-grade solutions. Explore my core service pillars or view the full catalog of individual software modules.
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {CORE_PILLARS.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               className="card p-8 glow-border group flex flex-col h-full"
             >
-              <div className="flex items-center justify-between mb-8">
-                <div className="text-4xl filter grayscale group-hover:grayscale-0 transition-all duration-500">
-                  {service.icon}
-                </div>
-                {index === 0 && (
-                  <div className="flex items-center gap-1.5 px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
-                    <Sparkles size={10} className="text-accent" />
-                    <span className="text-[10px] font-bold text-accent uppercase tracking-widest">Most Popular</span>
-                  </div>
-                )}
+              <div className="text-4xl mb-8 filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                {service.icon}
               </div>
 
               <h3 className="text-xl font-bold mb-4 group-hover:text-accent-light transition-colors">
@@ -110,46 +81,45 @@ export default function Services() {
                 {service.description}
               </p>
 
-              <div className="space-y-3 mb-8">
+              <div className="space-y-3 mb-8 border-t border-surface-border pt-6">
                 {service.features.map((feature: string, fIndex: number) => (
                   <div key={fIndex} className="flex items-start gap-3">
                     <CheckCircle2 size={16} className="text-accent mt-0.5 shrink-0" />
-                    <span className="text-xs text-text-primary/80">{feature}</span>
+                    <span className="text-xs text-text-primary/70">{feature}</span>
                   </div>
                 ))}
               </div>
 
               <Link 
-                href={`/services/inquiry/${service.id}`} 
-                className="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-text-secondary group-hover:text-accent transition-all"
+                href="/solutions" 
+                className="btn-primary w-full justify-center text-[10px] py-4"
               >
-                Inquire Implementation <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                Explore Modules <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
           ))}
+        </div>
 
-          {/* Special Custom Offering Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: services.length * 0.1 }}
-            className="p-8 rounded-2xl border-2 border-dashed border-surface-border bg-surface/30 flex flex-col justify-center items-center text-center space-y-6 group hover:border-accent/40 transition-all"
-          >
-            <div className="w-16 h-16 rounded-full bg-surface-light border border-surface-border flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
-              🚀
-            </div>
-            <div>
-              <h3 className="text-xl font-bold mb-2">Bespoke Software</h3>
-              <p className="text-xs text-text-muted leading-relaxed">
-                Have a unique challenge? I build custom end-to-end applications from discovery to deployment.
-              </p>
-            </div>
-            <Link href="/#contact" className="btn-outline py-2 px-6 text-[10px]">
-              Discuss Your Idea
+        <div className="flex justify-center">
+            <Link 
+              href="/solutions" 
+              className="btn-outline px-10 py-4 flex items-center gap-3 group transition-all"
+            >
+              <span className="uppercase tracking-[0.2em] font-bold text-xs">View Full Software Catalog</span>
+              <div className="p-1 bg-accent/20 rounded-full group-hover:bg-accent transition-colors">
+                <ArrowRight size={14} />
+              </div>
             </Link>
-          </motion.div>
         </div>
       </div>
+
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20">
+        <div className="absolute inset-0 bg-accent rounded-full blur-[160px] opacity-10 animate-pulse-glow" />
+      </div>
+    </section>
+  );
+}
 
       {/* Background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20">
