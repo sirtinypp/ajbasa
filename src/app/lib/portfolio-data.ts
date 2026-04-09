@@ -106,27 +106,27 @@ export const portfolioData: PortfolioData = {
   },
   experience: [
     {
+      role: 'Junior Office Manager',
+      company: 'University of the Philippines System (SSPMO / OVPA)',
+      period: '2025 – Present',
+      description: 'Leading digitalization initiatives and system implementations for the Supply and Property Management Office. Serving as ISO and Data Champion.',
+      highlights: [
+        'Sole developer for key institutional digitalization initiatives',
+        'Architected AI-powered automations to streamline government workflows',
+        'Injecting agile processes into traditional bureaucratic systems',
+        'Overseeing data integrity and compliance as a Data Champion',
+      ],
+    },
+    {
       role: 'Full-Stack Developer (Contract)',
       company: 'PhMedtech-Europe',
       period: '2024 – Present',
       description: 'Architecting and maintaining a specialized multi-tenant LMS and career platform for German language education.',
       highlights: [
-        'Developed a multi-tenant architecture with school-specific branding and data isolation',
-        'Implemented a gamified learning system with point-based progression and achievements',
-        'Built a dynamic resource hub using HTMX for seamless, app-like user interactions',
-        'Integrated automated quiz engines and activity submission systems for structured learning',
-      ],
-    },
-    {
-      role: 'Junior Office Manager',
-      company: 'University of the Philippines System (SSPMO / OVPA)',
-      period: '2025 – Present',
-      description: 'Leading digitalization initiatives and system implementations for the System Supply and Property Management Office. Serving as ISO, Values, and Data Champion.',
-      highlights: [
-        'Sole developer for key digitalization initiatives and office systems',
-        'Architected and implemented AI-powered automations to streamline government workflows',
-        'Injecting modern, agile processes into traditional bureaucratic systems',
-        'Overseeing data integrity and compliance as a designated Data Champion',
+        'Developed a multi-tenant architecture with school-specific branding',
+        'Implemented a gamified learning system with point-based progression',
+        'Built a dynamic resource hub using HTMX for seamless UX',
+        'Integrated automated quiz engines and submission systems',
       ],
     },
     {
@@ -137,7 +137,7 @@ export const portfolioData: PortfolioData = {
       highlights: [
         'Developed native and AI-integrated applications for office management',
         'Supported the digital transformation of vertical administrative units',
-        'Ensured high standards of code quality and system security in institutional projects',
+        'Ensured high standards of code quality and system security',
       ],
     },
   ],
