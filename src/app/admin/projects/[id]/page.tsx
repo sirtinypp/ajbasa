@@ -231,9 +231,63 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
               <input name="color" value={formData.color} onChange={handleChange} placeholder="from-blue-600 to-indigo-600" className="form-input" />
            </div>
 
-           <div>
-              <label className="label">Thumbnail URL</label>
-              <input name="thumbnail" value={formData.thumbnail} onChange={handleChange} placeholder="https://..." className="form-input" />
+           <div className="space-y-4">
+              <label className="label">Project Thumbnail</label>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                <input 
+                  name="thumbnail" 
+                  value={formData.thumbnail} 
+                  onChange={handleChange} 
+                  placeholder="https://..." 
+                  className="form-input flex-grow" 
+                />
+                <div className="relative">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      
+                      setSaving(true);
+                      const fileExt = file.name.split('.').pop();
+                      const fileName = `${Math.random()}.${fileExt}`;
+                      const filePath = `${fileName}`;
+
+                      const { error: uploadError } = await supabase.storage
+                        .from('project-thumbnails')
+                        .upload(filePath, file);
+
+                      if (uploadError) {
+                        alert('Error uploading image: ' + uploadError.message);
+                      } else {
+                        const { data } = supabase.storage
+                          .from('project-thumbnails')
+                          .getPublicUrl(filePath);
+                        
+                        setFormData(prev => ({ ...prev, thumbnail: data.publicUrl }));
+                      }
+                      setSaving(false);
+                    }}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                  />
+                  <button type="button" className="btn-outline whitespace-nowrap">
+                    📁 Upload Real Screenshot
+                  </button>
+                </div>
+              </div>
+              {formData.thumbnail && (
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-surface-border mt-2">
+                  <img src={formData.thumbnail} alt="Preview" className="w-full h-full object-cover" />
+                  <button 
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, thumbnail: '' }))}
+                    className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
            </div>
 
            <div>
