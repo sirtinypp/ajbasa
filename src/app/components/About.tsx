@@ -1,6 +1,23 @@
 export default function About({ about, achievements = [], events = [] }: { about?: any, achievements?: any[], events?: any[] }) {
   if (!about) return null;
 
+  // Helper to parse "Month Year" or "Year"
+  const parseDate = (d: string) => {
+    if (!d) return 0;
+    const parts = d.split(' ');
+    if (parts.length === 1) return parseInt(parts[0]); // Year only
+    const months: { [key: string]: number } = { 
+      Jan: 1, Feb: 2, March: 3, April: 4, May: 5, June: 6, 
+      July: 7, Aug: 8, Sept: 9, Oct: 10, Nov: 11, Dec: 12 
+    };
+    const month = months[parts[0]] || 0;
+    const year = parseInt(parts[1]);
+    return year * 12 + month;
+  };
+
+  const sortedAchievements = [...achievements].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+  const sortedEvents = [...events].sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
 
   return (
     <section id="about" className="relative py-32 overflow-hidden">
@@ -61,7 +78,7 @@ export default function About({ about, achievements = [], events = [] }: { about
               Key Achievements
             </h3>
             <div className="space-y-4">
-              {achievements.map((item: any) => (
+              {sortedAchievements.map((item: any) => (
                 <div key={item.id} className="card p-6 glow-border group">
                   <div className="flex justify-between items-start mb-3">
                     <span className="text-2xl bg-surface p-2 rounded-lg border border-surface-border">
@@ -91,7 +108,7 @@ export default function About({ about, achievements = [], events = [] }: { about
               Notable Events
             </h3>
             <div className="space-y-8 relative before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[1px] before:bg-surface-border">
-              {events.map((item: any) => (
+              {sortedEvents.map((item: any) => (
                 <div key={item.id} className="relative pl-12 group">
                   {/* Timeline Dot */}
                   <div className="absolute left-0 top-1.5 w-10 h-10 rounded-full border border-surface-border bg-background flex items-center justify-center z-10 group-hover:border-accent transition-colors">
