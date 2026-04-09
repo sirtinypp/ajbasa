@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import AIAssistant from "./components/AIAssistant";
+import CookieBanner from "./components/CookieBanner";
 
 export default function RootLayout({
   children,
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-background text-foreground">
         <AnalyticsTracker />
         {children}
+        <CookieBanner />
         <AIAssistant />
       </body>
     </html>

@@ -8,20 +8,23 @@ export default function AnalyticsTracker() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Don't track admin visits
-    if (pathname.startsWith('/admin')) return;
+    async function logVisit() {
+      // Check for consent (Optional: we can log basic hits regardless if considered legitimate interest)
+      const consent = localStorage.getItem('cookie-consent');
+      if (consent === 'decline') return;
 
-    const trackVisit = async () => {
       try {
-        await supabase.from('analytics').insert({
-          page_path: pathname
-        });
-      } catch (e) {
-        console.error('Analytics failed:', e);
+        await supabase.from('visitor_logs').insert([{
+          path: pathname,
+          referer: document.referrer || 'direct',
+          user_agent: navigator.userAgent
+        }]);
+      } catch (err) {
+        console.error('Tracking failed:', err);
       }
-    };
+    }
 
-    trackVisit();
+    logVisit();
   }, [pathname]);
 
   return null;
