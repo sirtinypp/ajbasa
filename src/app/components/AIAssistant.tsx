@@ -12,7 +12,8 @@ export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [assistantName, setAssistantName] = useState('Portfolio Assistant');
-  const { messages, sendMessage, isLoading } = useChat();
+  const { messages, sendMessage, status } = useChat();
+  const isLoading = status === 'submitted' || status === 'streaming';
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
