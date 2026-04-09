@@ -6,13 +6,37 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
+const DEFAULT_SERVICES = [
+  { 
+    id: 'ams', 
+    title: 'Asset Management System', 
+    description: 'A comprehensive solution for tracking enterprise hardware and assets with automated lifecycle and depreciation reporting.',
+    icon: '📦',
+    features: ['Real-time lifecycle tracking', 'Automated audit trails', 'Precision depreciation logs']
+  },
+  { 
+    id: 'ai-bot', 
+    title: 'Custom AI Integration', 
+    description: 'Tailored LLM-powered assistants designed to handle customer support or internal workflow automation.',
+    icon: '🤖',
+    features: ['Context-aware responses', 'Seamless API integration', 'Custom personality tuning']
+  },
+  { 
+    id: 'lms', 
+    title: 'Learning & Knowledge MS', 
+    description: 'Scalable educational platforms for corporate training, onboarding, or private educational institutions.',
+    icon: '🎓',
+    features: ['Progress tracking', 'Multimedia lesson delivery', 'Automated certification']
+  }
+];
+
 export default function Services() {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>(DEFAULT_SERVICES);
 
   useEffect(() => {
     async function fetchServices() {
       const { data } = await supabase.from('site_configs').select('data').eq('key', 'services').single();
-      if (data?.data) {
+      if (data?.data && data.data.length > 0) {
         setServices(data.data);
       }
     }
