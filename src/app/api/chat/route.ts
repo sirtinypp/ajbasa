@@ -81,7 +81,6 @@ export async function POST(req: Request) {
     ${achievements?.map((a: any) => `- ${a.year}: ${a.title} - ${a.description}`).join('\n')}
 
     CONTACT:
-    - GitHub: ${configs.identity?.github}
     - Email: ${configs.identity?.email}
   `;
 

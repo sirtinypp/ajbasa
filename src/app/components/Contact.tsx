@@ -64,10 +64,10 @@ export default function Contact() {
                 href: `mailto:${identity.email}`,
               },
               {
-                icon: '💻',
-                label: 'GitHub',
-                value: identity.github.replace('https://', ''),
-                href: identity.github,
+                icon: '💼',
+                label: 'Consultancy',
+                value: 'Inquire Now',
+                href: '/#services',
               },
             ].map((item) => (
               <a

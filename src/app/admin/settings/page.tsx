@@ -96,14 +96,6 @@ export default function SettingsPage() {
               className="form-input" 
             />
           </div>
-          <div className="md:col-span-2">
-            <label className="label">GitHub Profile URL</label>
-            <input 
-              value={configs.identity?.github || ''} 
-              onChange={(e) => updateConfig('identity', 'github', e.target.value)}
-              className="form-input" 
-            />
-          </div>
         </div>
       </section>
 

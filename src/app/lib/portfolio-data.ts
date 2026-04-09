@@ -51,7 +51,6 @@ export interface PortfolioData {
     lastName: string;
     title: string;
     email: string;
-    github: string;
   };
   hero: {
     shortBio: string;
@@ -83,7 +82,6 @@ export const portfolioData: PortfolioData = {
     lastName: 'Basa',
     title: 'Full-Stack Developer + AI Specialist',
     email: 'acjbasa00@gmail.com',
-    github: 'https://github.com/sirtinypp',
   },
   hero: {
     shortBio: 'I craft robust, AI-powered web applications and scalable enterprise systems that bridge the gap between traditional governance and modern efficiency.',
