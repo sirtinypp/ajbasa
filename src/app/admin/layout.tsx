@@ -46,6 +46,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     { href: '/admin/content', icon: '📝', label: 'Content' },
     { href: '/admin/inquiries', icon: '📩', label: 'Inquiries' },
     { href: '/admin/settings', icon: '⚙️', label: 'Settings' },
+    { href: '/admin/migrate', icon: '🧬', label: 'Sync Data' },
   ];
 
   return (

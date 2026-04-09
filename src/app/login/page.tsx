@@ -25,7 +25,9 @@ export default function LoginPage() {
       setError(error.message);
       setLoading(false);
     } else {
-      router.push('/admin');
+      // Use window.location for a hard redirect after login to ensure 
+      // cookies are properly synchronized in the production environment.
+      window.location.href = '/admin';
     }
   };
 
