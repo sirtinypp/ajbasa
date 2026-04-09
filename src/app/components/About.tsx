@@ -17,7 +17,7 @@ export default function About({ about, achievements = [], events = [] }: { about
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Bio */}
           <div className="space-y-6">
-            {about.paragraphs.map((p, i) => (
+            {about.paragraphs.map((p: any, i: number) => (
               <p
                 key={i}
                 className={
@@ -61,7 +61,7 @@ export default function About({ about, achievements = [], events = [] }: { about
               Key Achievements
             </h3>
             <div className="space-y-4">
-              {achievements.map((item, i) => (
+              {achievements.map((item: any, i: number) => (
                 <div key={i} className="card p-6 glow-border group">
                   <div className="flex justify-between items-start mb-3">
                     <span className="text-2xl bg-surface p-2 rounded-lg border border-surface-border">
@@ -91,7 +91,7 @@ export default function About({ about, achievements = [], events = [] }: { about
               Notable Events
             </h3>
             <div className="space-y-8 relative before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[1px] before:bg-surface-border">
-              {events.map((item, i) => (
+              {events.map((item: any, i: number) => (
                 <div key={i} className="relative pl-12 group">
                   {/* Timeline Dot */}
                   <div className="absolute left-0 top-1.5 w-10 h-10 rounded-full border border-surface-border bg-background flex items-center justify-center z-10 group-hover:border-accent transition-colors">

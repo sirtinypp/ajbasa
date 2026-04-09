@@ -49,7 +49,7 @@ export default function Hero({ identity, hero }: { identity?: any, hero?: any })
 
           {/* Quick Stats */}
           <div className="animate-fade-up-delay-3 mt-12 flex flex-wrap gap-x-8 gap-y-6 justify-center lg:justify-start">
-            {hero.stats.map((stat) => (
+            {hero.stats.map((stat: any) => (
               <div key={stat.label} className="text-center lg:text-left min-w-[80px]">
                 <div className="text-2xl font-bold gradient-text">
                   {stat.value}

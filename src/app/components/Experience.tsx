@@ -14,7 +14,7 @@ export default function Experience({ experienceList = [] }: { experienceList?: a
         </div>
 
         <div className="max-w-3xl mx-auto space-y-10">
-          {experienceList.map((exp) => (
+          {experienceList.map((exp: any) => (
             <div key={exp.role + exp.company} className="timeline-item">
               <div className="card p-7 glow-border">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
@@ -36,7 +36,7 @@ export default function Experience({ experienceList = [] }: { experienceList?: a
                 </p>
 
                 <ul className="space-y-2">
-                  {exp.highlights.map((h) => (
+                  {exp.highlights.map((h: string) => (
                     <li
                       key={h}
                       className="flex items-start gap-2 text-sm text-text-muted"

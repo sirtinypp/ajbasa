@@ -8,7 +8,7 @@ import Image from 'next/image';
 export default function Projects({ initialProjects = [] }: { initialProjects?: any[] }) {
   const [activeTab, setActiveTab] = useState<'enterprise' | 'web-app'>('enterprise');
 
-  const filteredProjects = initialProjects.filter(p => p.category === activeTab);
+  const filteredProjects = initialProjects.filter((p: any) => p.category === activeTab);
 
 
   return (
@@ -48,7 +48,7 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: a
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project: any) => (
             <div key={project.title} className="project-card group flex flex-col">
               {/* Image / Gradient Header */}
               <div className="relative h-48 w-full overflow-hidden">
@@ -94,7 +94,7 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: a
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
+                  {project.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-3 py-1 text-xs font-medium rounded-full bg-[var(--surface)] border border-surface-border text-text-muted"

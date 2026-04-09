@@ -17,7 +17,7 @@ export default function Skills({ skills = [] }: { skills?: any[] }) {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((cat) => (
+          {skills.map((cat: any) => (
             <div key={cat.title} className="card p-6 glow-border">
               <div className="flex items-center gap-3 mb-5">
                 <span className="text-2xl">{cat.icon}</span>
@@ -26,7 +26,7 @@ export default function Skills({ skills = [] }: { skills?: any[] }) {
                 </h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {cat.skills.map((skill) => (
+                {cat.skills.map((skill: string) => (
                   <span key={skill} className="skill-pill">
                     {skill}
                   </span>
