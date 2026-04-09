@@ -12,84 +12,26 @@ export default function ServicesManager() {
 
   const fetchServices = useCallback(async () => {
     const { data } = await supabase.from('site_configs').select('*').eq('key', 'services').single();
-    if (data) {
-      setServices(data.data || []);
+    
+    const defaultServices = [
+      { id: 'ams', title: 'Asset Management System', category: 'Enterprise', description: 'Strategic tracking of enterprise hardware...', icon: '📦', features: ['Real-time lifecycle tracking', 'Depreciation calculators'] },
+      { id: 'hris', title: 'HR Information & Management System', category: 'Enterprise', description: 'A full-featured workforce portal managing employee records...', icon: '👥', features: ['Employee self-service portal', 'Secure document vault'] },
+      { id: 'lms', title: 'Learning Management System', category: 'Enterprise', description: 'Scalable educational ecosystem for corporate training...', icon: '🎓', features: ['Progress analytics', 'Certification engine'] },
+      { id: 'ai-bot', title: 'Custom AI Chatbot Integration', category: 'Automation', description: 'Next-gen LLM assistants trained on your private domain data...', icon: '🤖', features: ['Context-aware intelligence', 'Multi-channel deployment'] },
+      { id: 'dtr-face', title: 'DTR with Facial Recognition', category: 'Identity', description: 'Biometric time tracking system utilizing facial recognition...', icon: '👤', features: ['Anti-spoofing technology', 'Shift management'] },
+      { id: 'monitoring', title: 'Operational Monitoring Tools', category: 'Automation', description: 'Customized real-time dashboards to track infrastructure health...', icon: '📊', features: ['Live data visualization', 'Real-time alerts'] },
+      { id: 'event-reg', title: 'Automated Event Registration', category: 'Business Tools', description: 'Complete event ticketing and registration engine...', icon: '🎟️', features: ['QR check-in system', 'Automated delivery'] },
+      { id: 'virtual-store', title: 'Virtual Store Ecosystem', category: 'Business Tools', description: 'Custom-built e-commerce platforms with integrated inventory...', icon: '🛒', features: ['Inventory synchronization', 'Secure payments'] },
+      { id: 'basic-web', title: 'Basic Professional Website', category: 'Business Tools', description: 'Ultra-fast, SEO-optimized professional landing pages...', icon: '🌐', features: ['High-performance Vitals', 'Mobile-first design'] }
+    ];
+
+    if (data && data.data) {
+      // Merge: Keep existing ones but add missing ones from defaults
+      const existingIds = data.data.map((s: any) => s.id);
+      const missingDefaults = defaultServices.filter(s => !existingIds.includes(s.id));
+      setServices([...data.data, ...missingDefaults]);
     } else {
-      // Default initial offerings
-      setServices([
-        { 
-          id: 'ams', 
-          title: 'Asset Management System', 
-          category: 'Enterprise',
-          description: 'Strategic tracking of enterprise hardware, software licenses, and physical assets with automated lifecycle and audit logs.',
-          icon: '📦',
-          features: ['Real-time lifecycle tracking', 'Depreciation calculators', 'Automated audit trails']
-        },
-        { 
-          id: 'hris', 
-          title: 'HR Information & Management System', 
-          category: 'Enterprise',
-          description: 'A full-featured workforce portal managing employee records, digital onboarding, performance reviews, and payroll readiness.',
-          icon: '👥',
-          features: ['Employee self-service portal', 'Secure document vault', 'Automated onboarding pipelines']
-        },
-        { 
-          id: 'lms', 
-          title: 'Learning Management System', 
-          category: 'Enterprise',
-          description: 'Scalable educational ecosystem for corporate training, internal knowledge bases, and private institution course delivery.',
-          icon: '🎓',
-          features: ['Progress analytics dashboard', 'Certification engine', 'Interactive multimedia lessons']
-        },
-        { 
-          id: 'ai-bot', 
-          title: 'Custom AI Chatbot Integration', 
-          category: 'Automation',
-          description: 'Next-gen LLM assistants trained on your private domain data to automate customer support and internal helpdesk workflows.',
-          icon: '🤖',
-          features: ['Context-aware intelligence', 'Multi-channel deployment', 'Custom personality tuning']
-        },
-        { 
-          id: 'dtr-face', 
-          title: 'DTR with Facial Recognition', 
-          category: 'Identity',
-          description: 'Biometric time tracking system utilizing facial recognition to eliminate time-theft and streamline attendance auditing.',
-          icon: '👤',
-          features: ['Anti-spoofing technology', 'Shift & schedule management', 'Real-time attendance alerts']
-        },
-        { 
-          id: 'monitoring', 
-          title: 'Operational Monitoring Tools', 
-          category: 'Automation',
-          description: 'Customized real-time dashboards to track infrastructure health, service uptime, and operational KPIs.',
-          icon: '📊',
-          features: ['Live data visualization', 'Threshold-based alerts', 'Historical trend analysis']
-        },
-        { 
-          id: 'event-reg', 
-          title: 'Automated Event Registration', 
-          category: 'Business Tools',
-          description: 'Complete event ticketing and registration engine with QR code verification and automated guest communications.',
-          icon: '🎟️',
-          features: ['QR check-in system', 'Automated ticket delivery', 'Guest list management']
-        },
-        { 
-          id: 'virtual-store', 
-          title: 'Virtual Store Ecosystem', 
-          category: 'Business Tools',
-          description: 'Custom-built e-commerce platforms with integrated inventory management and secure merchant checkout flows.',
-          icon: '🛒',
-          features: ['Inventory synchronization', 'Secure payment gateways', 'Sales tracking systems']
-        },
-        { 
-          id: 'basic-web', 
-          title: 'Basic Professional Website', 
-          category: 'Business Tools',
-          description: 'Ultra-fast, SEO-optimized professional landing pages designed for high-conversion and brand authority.',
-          icon: '🌐',
-          features: ['High-performance Vitals', 'Mobile-first design', 'SEO core configuration']
-        }
-      ]);
+      setServices(defaultServices);
     }
     setLoading(false);
   }, []);
