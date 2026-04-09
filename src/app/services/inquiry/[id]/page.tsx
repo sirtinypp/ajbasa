@@ -7,6 +7,13 @@ import { ArrowLeft, Send, CheckCircle2, ChevronRight, Building2, ClipboardList, 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+const DEFAULT_SERVICES = [
+  { id: 'ams', title: 'Asset Management System' },
+  { id: 'hris', title: 'HR Management Suite' },
+  { id: 'ai-bot', title: 'Custom AI Integration' },
+  { id: 'lms', title: 'Learning & Knowledge MS' }
+];
+
 export default function ServiceInquiryPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
   const params = use(paramsPromise);
   const router = useRouter();
@@ -29,11 +36,16 @@ export default function ServiceInquiryPage({ params: paramsPromise }: { params: 
 
   useEffect(() => {
     async function fetchService() {
+      // Try DB first
       const { data } = await supabase.from('site_configs').select('data').eq('key', 'services').single();
-      if (data?.data) {
-        const selected = data.data.find((s: any) => s.id === params.id);
-        if (selected) setService(selected);
+      let selected = data?.data?.find((s: any) => s.id === params.id);
+      
+      // Fallback to defaults
+      if (!selected) {
+        selected = DEFAULT_SERVICES.find(s => s.id === params.id);
       }
+
+      setService(selected || { id: 'custom', title: 'Custom Solution' });
     }
     fetchService();
   }, [params.id]);
@@ -89,10 +101,6 @@ LOGISTICS:
       setTimeout(() => router.push('/'), 3000);
     }
   };
-
-  if (!service && params.id !== 'custom') {
-    return <div className="p-20 text-center">Loading Assessment Profile...</div>;
-  }
 
   if (submitted) {
     return (
