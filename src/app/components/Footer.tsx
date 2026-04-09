@@ -45,7 +45,7 @@ export default function Footer({ identity }: { identity?: any }) {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-10 border-t border-surface-border text-[10px] uppercase tracking-widest text-text-muted font-bold">
-          <div>© {new Date().getFullYear()} Aaron Christian Basa.</div>
+          <div><Link href="/admin" className="hover:text-accent-light transition-colors cursor-default">©</Link> {new Date().getFullYear()} Aaron Christian Basa.</div>
           <div className="flex gap-6">
             <span>Built with Next.js &amp; Supabase</span>
           </div>
