@@ -113,7 +113,7 @@ export default function Services() {
               </div>
 
               <Link 
-                href="/#contact" 
+                href={`/services/inquiry/${service.id}`} 
                 className="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-text-secondary group-hover:text-accent transition-all"
               >
                 Inquire Implementation <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
