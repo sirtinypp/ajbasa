@@ -1,9 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
 import { motion } from 'framer-motion';
-import { CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const CORE_PILLARS = [
@@ -114,16 +112,8 @@ export default function Services() {
       </div>
 
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20">
-        <div className="absolute inset-0 bg-accent rounded-full blur-[160px] opacity-10 animate-pulse-glow" />
-      </div>
-    </section>
-  );
-}
-
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20">
-        <div className="absolute inset-0 bg-accent rounded-full blur-[160px] opacity-10 animate-pulse-glow" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20 text-accent">
+        <div className="absolute inset-0 bg-current rounded-full blur-[160px] opacity-10 animate-pulse-glow text-accent" />
       </div>
     </section>
   );
