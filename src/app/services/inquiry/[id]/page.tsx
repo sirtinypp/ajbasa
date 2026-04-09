@@ -58,9 +58,18 @@ export default function ServiceInquiryPage({ params: paramsPromise }: { params: 
     e.preventDefault();
     setLoading(true);
 
+    // Expand internal IDs to full titles for the report
+    const serviceTitleMap: Record<string, string> = {
+      'ams': 'Asset Management System',
+      'hris': 'HR Management Suite',
+      'lms': 'Learning Management System',
+      'ai-bot': 'Custom AI Integration'
+    };
+    const displayTitle = service?.title || serviceTitleMap[params.id] || params.id;
+
     // Formulate a robust discovery message
     const discoveryReport = `
-PROJECT DISCOVERY REPORT: ${service?.title || params.id}
+PROJECT DISCOVERY REPORT: ${displayTitle}
 --------------------------------------------------
 CLIENT PROFILE:
 - Name: ${formData.name}

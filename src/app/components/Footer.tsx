@@ -21,30 +21,50 @@ export default function Footer({ identity }: { identity?: any }) {
             </span>
           </Link>
 
-          {/* Links */}
-          <div className="flex items-center gap-6">
-            <a
-              href={identity.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-text-muted hover:text-accent-light transition-colors"
-            >
-              GitHub
-            </a>
-
-            <a
-              href={`mailto:${identity.email}`}
-              className="text-sm text-text-muted hover:text-accent-light transition-colors"
-            >
-              Email
-            </a>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-light uppercase tracking-tighter">
+              Aaron Basa
+            </h3>
+            <p className="text-text-secondary text-sm leading-relaxed">
+              Strategic Softare Solutions for Modern Enterprises.
+            </p>
           </div>
 
-          {/* Copyright */}
-          <p className="text-sm text-text-muted flex items-center gap-1">
-            <Link href="/admin" className="hover:text-accent-light transition-colors cursor-default">©</Link> 
-            <span>{currentYear} {identity.name}. All rights reserved.</span>
-          </p>
+          <div className="space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-text-muted">Strategic Solutions Legend</h4>
+            <ul className="space-y-2 text-xs font-medium">
+              <li><span className="text-accent">AMS:</span> Asset Management System</li>
+              <li><span className="text-accent">HRIS:</span> HR Information System</li>
+              <li><span className="text-accent">LMS:</span> Learning Management System</li>
+              <li><span className="text-accent">AI-Bot:</span> Custom AI Chatbot</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-text-muted">Navigation</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/#about" className="text-text-secondary hover:text-accent transition-colors">Experience</Link></li>
+              <li><Link href="/#services" className="text-text-secondary hover:text-accent transition-colors">Solutions</Link></li>
+              <li><Link href="/projects" className="text-text-secondary hover:text-accent transition-colors">Projects</Link></li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-text-muted">Account</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/admin" className="text-text-secondary hover:text-accent transition-colors">Admin Dashboard</Link></li>
+              <li><Link href="/#contact" className="text-text-secondary hover:text-accent transition-colors">Contact Me</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-10 border-t border-surface-border text-[10px] uppercase tracking-widest text-text-muted font-bold">
+          <div>© {new Date().getFullYear()} Aaron Christian Basa.</div>
+          <div className="flex gap-6">
+            <span>Built with Next.js & Supabase</span>
+            <span>Strategic Consultancy Tier: Elite</span>
+          </div>
         </div>
       </div>
     </footer>
