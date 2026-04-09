@@ -8,17 +8,17 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [configs, setConfigs] = useState<any>({});
 
+  const fetchConfigs = async () => {
+    setLoading(true);
+    const { data } = await supabase.from('site_configs').select('*');
+    const mapped = data?.reduce((acc: any, curr: any) => ({ ...acc, [curr.key]: curr.data }), {});
+    setConfigs(mapped || {});
+    setLoading(false);
+  };
+
   useEffect(() => {
     fetchConfigs();
   }, []);
-
-  async function fetchConfigs() {
-    setLoading(true);
-    const { data } = await supabase.from('site_configs').select('*');
-    const mapped = data?.reduce((acc, curr) => ({ ...acc, [curr.key]: curr.data }), {});
-    setConfigs(mapped || {});
-    setLoading(false);
-  }
 
   const updateConfig = (key: string, subKey: string, value: any) => {
     setConfigs((prev: any) => ({

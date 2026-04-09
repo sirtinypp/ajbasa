@@ -18,11 +18,7 @@ export default function InquiriesPage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Inquiry | null>(null);
 
-  useEffect(() => {
-    fetchInquiries();
-  }, []);
-
-  async function fetchInquiries() {
+  const fetchInquiries = async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('inquiries')
@@ -32,7 +28,11 @@ export default function InquiriesPage() {
     if (error) console.error('Error fetching inquiries:', error);
     else setInquiries(data || []);
     setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    fetchInquiries();
+  }, []);
 
   async function markAsRead(id: string) {
     const { error } = await supabase

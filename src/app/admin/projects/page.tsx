@@ -16,11 +16,7 @@ export default function ProjectsManagement() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  async function fetchProjects() {
+  const fetchProjects = async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('projects')
@@ -29,7 +25,11 @@ export default function ProjectsManagement() {
 
     if (!error) setProjects(data || []);
     setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   async function deleteProject(id: string) {
     if (!confirm('Are you sure? This will permanently delete this project.')) return;

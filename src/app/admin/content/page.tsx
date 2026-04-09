@@ -9,11 +9,7 @@ export default function ContentManagement() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any[]>([]);
 
-  useEffect(() => {
-    fetchData();
-  }, [activeTab]);
-
-  async function fetchData() {
+  const fetchData = async () => {
     setLoading(true);
     let query = supabase.from(activeTab).select('*');
     
@@ -24,7 +20,11 @@ export default function ContentManagement() {
     const { data: result } = await query;
     setData(result || []);
     setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [activeTab]);
 
   async function deleteItem(id: string) {
     if (!confirm('Are you sure you want to delete this item?')) return;
