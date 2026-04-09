@@ -523,7 +523,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       title: 'Global Career Hub Launch',
-      date: 'Sept 2024',
+      date: 'April 2026',
       description: 'Launched PhMedtech-Europe LMS, facilitating career transitions for health professionals.',
       category: 'Launch',
     },
