@@ -9,9 +9,9 @@ import { useRouter } from 'next/navigation';
 
 const DEFAULT_SERVICES = [
   { id: 'ams', title: 'Asset Management System' },
-  { id: 'hris', title: 'HR Management Suite' },
-  { id: 'ai-bot', title: 'Custom AI Integration' },
-  { id: 'lms', title: 'Learning & Knowledge MS' }
+  { id: 'hris', title: 'HR Information & Management System' },
+  { id: 'lms', title: 'Learning Management System' },
+  { id: 'ai-bot', title: 'Custom AI Chatbot Integration' }
 ];
 
 export default function ServiceInquiryPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
@@ -61,9 +61,9 @@ export default function ServiceInquiryPage({ params: paramsPromise }: { params: 
     // Expand internal IDs to full titles for the report
     const serviceTitleMap: Record<string, string> = {
       'ams': 'Asset Management System',
-      'hris': 'HR Management Suite',
+      'hris': 'HR Information & Management System',
       'lms': 'Learning Management System',
-      'ai-bot': 'Custom AI Integration'
+      'ai-bot': 'Custom AI Chatbot Integration'
     };
     const displayTitle = service?.title || serviceTitleMap[params.id] || params.id;
 

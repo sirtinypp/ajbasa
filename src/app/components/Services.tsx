@@ -15,18 +15,25 @@ const DEFAULT_SERVICES = [
     features: ['Real-time lifecycle tracking', 'Automated audit trails', 'Precision depreciation logs']
   },
   { 
-    id: 'ai-bot', 
-    title: 'Custom AI Integration', 
-    description: 'Tailored LLM-powered assistants designed to handle customer support or internal workflow automation.',
-    icon: '🤖',
-    features: ['Context-aware responses', 'Seamless API integration', 'Custom personality tuning']
+    id: 'hris', 
+    title: 'HR Information & Management System', 
+    description: 'Centralize employee records, documentation, and performance reviews in a secure, high-performance portal.',
+    icon: '👥',
+    features: ['Employee profile management', 'Automated onboarding flows', 'Secure document storage']
   },
   { 
     id: 'lms', 
-    title: 'Learning & Knowledge MS', 
+    title: 'Learning Management System', 
     description: 'Scalable educational platforms for corporate training, onboarding, or private educational institutions.',
     icon: '🎓',
     features: ['Progress tracking', 'Multimedia lesson delivery', 'Automated certification']
+  },
+  { 
+    id: 'ai-bot', 
+    title: 'Custom AI Chatbot Integration', 
+    description: 'Tailored LLM-powered assistants designed to handle customer support or internal workflow automation.',
+    icon: '🤖',
+    features: ['Context-aware responses', 'Seamless API integration', 'Custom personality tuning']
   }
 ];
 
