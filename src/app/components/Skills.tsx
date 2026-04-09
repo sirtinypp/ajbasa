@@ -1,7 +1,5 @@
-import { portfolioData } from '../lib/portfolio-data';
+export default function Skills({ skills = [] }: { skills?: any[] }) {
 
-export default function Skills() {
-  const { skills } = portfolioData;
 
   return (
     <section id="skills" className="relative py-32 overflow-hidden">

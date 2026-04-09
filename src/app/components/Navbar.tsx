@@ -2,9 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { portfolioData } from '../lib/portfolio-data';
-
-const { identity } = portfolioData;
 
 const navItems = [
   { label: 'About', href: '/#about' },
@@ -14,9 +11,12 @@ const navItems = [
   { label: 'Contact', href: '/#contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ identity }: { identity?: any }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const nickname = identity?.nickname || 'Portfolio';
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -35,10 +35,10 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--gradient-start)] to-[var(--gradient-mid)] flex items-center justify-center text-white font-bold text-sm transition-transform group-hover:scale-110">
-            {identity.nickname[0]}
+            {nickname[0]}
           </div>
           <span className="font-semibold text-text-primary tracking-tight">
-            {identity.nickname}<span className="text-accent-light">.dev</span>
+            {nickname}<span className="text-accent-light">.dev</span>
           </span>
         </Link>
 

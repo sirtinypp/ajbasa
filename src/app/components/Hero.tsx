@@ -1,9 +1,9 @@
-import { portfolioData } from '../lib/portfolio-data';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Hero() {
-  const { identity, hero } = portfolioData;
+export default function Hero({ identity, hero }: { identity?: any, hero?: any }) {
+  if (!identity || !hero) return null;
+
 
   return (
     <section
@@ -48,13 +48,13 @@ export default function Hero() {
           </div>
 
           {/* Quick Stats */}
-          <div className="animate-fade-up-delay-3 mt-12 flex gap-8 justify-center lg:justify-start">
+          <div className="animate-fade-up-delay-3 mt-12 flex flex-wrap gap-x-8 gap-y-6 justify-center lg:justify-start">
             {hero.stats.map((stat) => (
-              <div key={stat.label} className="text-center">
+              <div key={stat.label} className="text-center lg:text-left min-w-[80px]">
                 <div className="text-2xl font-bold gradient-text">
                   {stat.value}
                 </div>
-                <div className="text-xs text-text-muted mt-1 uppercase tracking-wider">
+                <div className="text-[10px] text-text-muted mt-1 uppercase tracking-wider font-bold">
                   {stat.label}
                 </div>
               </div>

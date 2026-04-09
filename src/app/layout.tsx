@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   },
 };
 
+import AnalyticsTracker from "./components/AnalyticsTracker";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,8 +49,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-screen bg-background text-foreground">
+        <AnalyticsTracker />
         {children}
       </body>
     </html>
   );
 }
+

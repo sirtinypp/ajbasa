@@ -1,9 +1,9 @@
-import { portfolioData } from '../lib/portfolio-data';
 import Link from 'next/link';
 
-export default function Footer() {
-  const { identity } = portfolioData;
+export default function Footer({ identity }: { identity?: any }) {
   const currentYear = new Date().getFullYear();
+  if (!identity) return null;
+
 
   return (
     <footer className="relative pb-12 pt-4">
@@ -41,8 +41,9 @@ export default function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-sm text-text-muted">
-            © {currentYear} {identity.name}. All rights reserved.
+          <p className="text-sm text-text-muted flex items-center gap-1">
+            <Link href="/admin" className="hover:text-accent-light transition-colors cursor-default">©</Link> 
+            <span>{currentYear} {identity.name}. All rights reserved.</span>
           </p>
         </div>
       </div>

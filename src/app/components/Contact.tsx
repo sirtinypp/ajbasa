@@ -2,15 +2,37 @@
 
 import { useState } from 'react';
 import { portfolioData } from '../lib/portfolio-data';
+import { supabase } from '../lib/supabase';
 
 export default function Contact() {
   const { identity } = portfolioData;
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+    };
+
+    const { error } = await supabase.from('inquiries').insert([data]);
+
+    if (error) {
+      console.error('Error sending inquiry:', error);
+      alert('Failed to send message. Please try again or email me directly.');
+      setLoading(false);
+    } else {
+      setSubmitted(true);
+      setLoading(false);
+      (e.target as HTMLFormElement).reset();
+      setTimeout(() => setSubmitted(false), 5000);
+    }
   };
 
   return (
@@ -84,6 +106,7 @@ export default function Contact() {
                   </label>
                   <input
                     id="contact-name"
+                    name="name"
                     type="text"
                     placeholder="Your name"
                     className="form-input"
@@ -99,6 +122,7 @@ export default function Contact() {
                   </label>
                   <input
                     id="contact-email"
+                    name="email"
                     type="email"
                     placeholder="you@example.com"
                     className="form-input"
@@ -116,6 +140,7 @@ export default function Contact() {
                 </label>
                 <input
                   id="contact-subject"
+                  name="subject"
                   type="text"
                   placeholder="What's this about?"
                   className="form-input"
@@ -131,6 +156,7 @@ export default function Contact() {
                 </label>
                 <textarea
                   id="contact-message"
+                  name="message"
                   rows={5}
                   placeholder="Tell me about your project..."
                   className="form-input resize-none"
@@ -144,7 +170,7 @@ export default function Contact() {
                 disabled={submitted}
               >
                 <span>
-                  {submitted ? '✓ Message Sent!' : 'Send Message'}
+                  {loading ? 'Sending...' : submitted ? '✓ Message Sent!' : 'Send Message'}
                 </span>
               </button>
             </form>

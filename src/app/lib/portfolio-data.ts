@@ -28,6 +28,21 @@ export interface SkillCategory {
   skills: string[];
 }
 
+export interface Achievement {
+  title: string;
+  year: string;
+  description: string;
+  icon: string;
+}
+
+export interface AppEvent {
+  title: string;
+  date: string;
+  description: string;
+  category: string;
+}
+
+
 export interface PortfolioData {
   identity: {
     name: string;
@@ -56,6 +71,8 @@ export interface PortfolioData {
   experience: Experience[];
   projects: Project[];
   skills: SkillCategory[];
+  achievements: Achievement[];
+  events: AppEvent[];
 }
 
 export const portfolioData: PortfolioData = {
@@ -318,6 +335,58 @@ export const portfolioData: PortfolioData = {
       title: 'Infrastructure',
       icon: '🛠️',
       skills: ['Docker', 'Railway / Vercel', 'Gunicorn / Nginx', 'CI/CD Pipelines', 'Linux Admin', 'Whitenoise'],
+    },
+  ],
+  achievements: [
+    {
+      title: 'DxLabs: AI for Institutional Transformation',
+      year: '2026',
+      description: 'Pioneer batch graduate of the UP System elite program, specializing in the strategic integration of Agentic AI into institution-wide workflows.',
+      icon: '🧪',
+    },
+    {
+      title: 'ISO & Data Champion',
+      year: '2025',
+      description: 'Appointed as the official lead for Data Integrity and Quality Standards for the UP System SSPMO.',
+      icon: '🏆',
+    },
+    {
+      title: 'Gov-Tech Modernization',
+      year: '2024',
+      description: 'Successfully modernized 5+ critical government workflows, reducing processing time by over 60%.',
+      icon: '🚀',
+    },
+    {
+      title: 'Open Source Contributor',
+      year: '2023',
+      description: 'Active contributor to various Django and HTMX ecosystem projects and local developer communities.',
+      icon: '🌟',
+    },
+  ],
+  events: [
+    {
+      title: 'Automating UP System Workflows',
+      date: 'March 2026',
+      description: 'Culminating workshop for the DxLabs program, demonstrating strategic AI Agent implementations for institutional tasks.',
+      category: 'Workshop',
+    },
+    {
+      title: 'Digitalization Roadmap Summit',
+      date: 'Dec 2024',
+      description: 'Presented the SPMO Suite ecosystem to UP System administrators and stakeholders.',
+      category: 'Speaking',
+    },
+    {
+      title: 'Global Career Hub Launch',
+      date: 'Sept 2024',
+      description: 'Launched PhMedtech-Europe LMS, facilitating career transitions for health professionals.',
+      category: 'Launch',
+    },
+    {
+      title: 'AI in Governance Workshop',
+      date: 'May 2024',
+      description: 'Led a workshop on integrating LLMs into administrative workflows for office managers.',
+      category: 'Workshop',
     },
   ],
 };

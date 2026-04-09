@@ -1,7 +1,5 @@
-import { portfolioData } from '../lib/portfolio-data';
+export default function Experience({ experienceList = [] }: { experienceList?: any[] }) {
 
-export default function Experience() {
-  const { experience } = portfolioData;
 
   return (
     <section id="experience" className="relative py-32 overflow-hidden">
@@ -16,7 +14,7 @@ export default function Experience() {
         </div>
 
         <div className="max-w-3xl mx-auto space-y-10">
-          {experience.map((exp) => (
+          {experienceList.map((exp) => (
             <div key={exp.role + exp.company} className="timeline-item">
               <div className="card p-7 glow-border">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">

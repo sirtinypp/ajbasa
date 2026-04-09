@@ -5,11 +5,11 @@ import { portfolioData } from '../lib/portfolio-data';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Projects() {
-  const { projects } = portfolioData;
+export default function Projects({ initialProjects = [] }: { initialProjects?: any[] }) {
   const [activeTab, setActiveTab] = useState<'enterprise' | 'web-app'>('enterprise');
 
-  const filteredProjects = projects.filter(p => p.category === activeTab);
+  const filteredProjects = initialProjects.filter(p => p.category === activeTab);
+
 
   return (
     <section id="projects" className="relative py-32 overflow-hidden">
