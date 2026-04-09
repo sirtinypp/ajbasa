@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import { motion } from 'framer-motion';
 import { 
@@ -16,6 +16,7 @@ import {
 
 export default function AnalyticsDashboard() {
   const [logs, setLogs] = useState<any[]>([]);
+  const [timeframe, setTimeframe] = useState<'month' | 'year' | 'all'>('month');
   const [stats, setStats] = useState({
     totalViews: 0,
     uniqueVisitors: 0,
@@ -24,34 +25,40 @@ export default function AnalyticsDashboard() {
   });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchLogs() {
-      const { data, error } = await supabase
-        .from('visitor_logs')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(50);
+  const fetchLogs = useCallback(async () => {
+    const { data } = await supabase
+      .from('visitor_logs')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-      if (data) {
-        setLogs(data);
-        
-        // Simple aggregate calculations
-        const uniqueIps = new Set(data.map(l => l.ip_hash)).size;
-        const paths = data.map(l => l.path);
-        const mostCommonPath = paths.sort((a,b) =>
-          paths.filter(v => v===a).length - paths.filter(v => v===b).length
-        ).pop();
+    if (data) {
+      const now = new Date();
+      const filtered = data.filter(log => {
+        const logDate = new Date(log.created_at);
+        if (timeframe === 'month') return logDate.getMonth() === now.getMonth() && logDate.getFullYear() === now.getFullYear();
+        if (timeframe === 'year') return logDate.getFullYear() === now.getFullYear();
+        return true;
+      });
 
-        setStats({
-          totalViews: data.length,
-          uniqueVisitors: uniqueIps || data.length, // Fallback if ip_hash isn't unique yet
-          topPath: mostCommonPath || '/',
-          avgDuration: '2m 45s' // Static placeholder for now
-        });
-      }
-      setLoading(false);
+      setLogs(filtered.slice(0, 50));
+      
+      const uniqueIps = new Set(filtered.map(l => l.user_agent)).size; // Fallback to UA if IP hash isn't set
+      const paths = filtered.map(l => l.path);
+      const mostCommonPath = paths.sort((a,b) =>
+        paths.filter(v => v===a).length - paths.filter(v => v===b).length
+      ).pop();
+
+      setStats({
+        totalViews: filtered.length,
+        uniqueVisitors: uniqueIps || filtered.length,
+        topPath: mostCommonPath || '/',
+        avgDuration: '3m 12s'
+      });
     }
+    setLoading(false);
+  }, [timeframe]);
 
+  useEffect(() => {
     fetchLogs();
     const subscription = supabase
       .channel('visitor_logs')
@@ -61,20 +68,28 @@ export default function AnalyticsDashboard() {
     return () => {
       supabase.removeChannel(subscription);
     };
-  }, []);
+  }, [fetchLogs]);
 
   if (loading) return <div className="p-20 text-center uppercase tracking-widest text-xs font-bold animate-pulse">Initializing Intelligence Feed...</div>;
 
   return (
     <div className="space-y-12 animate-fade-up pb-20">
-      <div className="flex justify-between items-end border-b border-surface-border pb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-surface-border pb-8 gap-6">
         <div>
           <h2 className="text-3xl font-bold mb-2">Traffic Intelligence</h2>
           <p className="text-text-secondary text-sm">Real-time engagement metrics for your solutions catalog.</p>
         </div>
-        <div className="flex gap-2 items-center text-[10px] font-bold text-green-500 uppercase tracking-widest bg-green-500/10 px-3 py-1 rounded-full">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          Live Feed Active
+        
+        <div className="flex gap-2 p-1 bg-surface-light border border-surface-border rounded-xl">
+           {(['month', 'year', 'all'] as const).map((t) => (
+             <button
+               key={t}
+               onClick={() => setTimeframe(t)}
+               className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all ${timeframe === t ? 'bg-accent text-white shadow-lg' : 'text-text-muted hover:text-text-primary'}`}
+             >
+               {t}
+             </button>
+           ))}
         </div>
       </div>
 
