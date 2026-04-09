@@ -5,6 +5,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
+import Services from './components/Services';
 import Footer from './components/Footer';
 import { createClient } from './lib/supabase-server';
 
@@ -36,6 +37,7 @@ export default async function Home() {
       <main>
         <Hero hero={configs.hero} identity={configs.identity} />
         <About about={configs.about} achievements={achievements || []} events={events || []} />
+        <Services />
         <Projects initialProjects={projects || []} />
         <Skills skills={configs.skills} />
         <Experience experienceList={experience || []} />
