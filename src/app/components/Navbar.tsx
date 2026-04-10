@@ -56,8 +56,8 @@ export default function Navbar({ identity }: { identity?: any }) {
 
         {/* CTA + Mobile Toggle */}
         <div className="flex items-center gap-4">
-          <Link href="/#contact" className="hidden md:inline-flex btn-primary">
-            <span>Let&apos;s Talk</span>
+          <Link href="/inquiry" className="hidden md:inline-flex btn-primary">
+            <span>Inquire Now</span>
           </Link>
           <button
             id="mobile-menu-toggle"
@@ -104,11 +104,11 @@ export default function Navbar({ identity }: { identity?: any }) {
           ))}
           <li>
             <Link
-              href="/#contact"
+              href="/inquiry"
               className="btn-primary w-full justify-center"
               onClick={() => setMobileOpen(false)}
             >
-              <span>Let&apos;s Talk</span>
+              <span>Inquire Now</span>
             </Link>
           </li>
         </ul>

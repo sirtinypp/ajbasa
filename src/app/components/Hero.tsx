@@ -38,12 +38,12 @@ export default function Hero({ identity, hero }: { identity?: any, hero?: any })
           </p>
 
           <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link href="/projects" className="btn-primary">
-              <span>View My Work</span>
+            <Link href="/inquiry" className="btn-primary">
+              <span>Initiate Project Assessment</span>
               <span className="relative z-10">→</span>
             </Link>
             <Link href="/#contact" className="btn-outline">
-              Get in Touch
+              Let&apos;s Talk
             </Link>
           </div>
 

@@ -66,6 +66,16 @@ export default function SolutionsPage() {
 
   return (
     <div className="min-h-screen bg-background text-text-primary">
+      {/* Back Link */}
+      <div className="fixed top-8 left-6 sm:left-12 z-50">
+        <Link 
+          href="/"
+          className="nav-glass px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest text-text-muted hover:text-text-primary flex items-center gap-2 transition-all border border-surface-border group shadow-xl"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Return to Hub
+        </Link>
+      </div>
+
       {/* Header */}
       <section className="pt-32 pb-20 relative overflow-hidden bg-surface/30">
         <div className="container mx-auto px-6 relative z-10">
@@ -170,8 +180,8 @@ export default function SolutionsPage() {
                 <PlusCircle size={24} className="text-text-muted group-hover:text-accent transition-colors" />
               </div>
               <h4 className="font-bold text-sm">Need a Custom Tool?</h4>
-              <p className="text-[10px] text-text-muted">If you don't see the specific monitoring or automation tool you need, I can architect it from scratch.</p>
-              <Link href="/#contact" className="text-xs font-bold text-accent">Start Custom discovery →</Link>
+              <p className="text-[10px] text-text-muted">If you don&apos;t see the specific monitoring or automation tool you need, I can architect it from scratch.</p>
+              <Link href="/inquiry" className="text-xs font-bold text-accent">Start Custom discovery →</Link>
             </motion.div>
           </div>
         </div>
