@@ -11,7 +11,8 @@ import {
   Download,
   Plus,
   Lock,
-  History
+  History,
+  Users
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -20,6 +21,43 @@ export default function BusinessVault() {
   const [docs, setDocs] = useState<any[]>([]);
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddClient, setShowAddClient] = useState(false);
+  const [showAddDoc, setShowAddDoc] = useState(false);
+  const [saving, setSaving] = useState(false);
+  
+  const [newClient, setNewClient] = useState({
+    name: '', industry: '', contact_person: '', email: '', status: 'Lead', current_project: '', project_health: 'Good'
+  });
+
+  const [newDoc, setNewDoc] = useState({
+    client_name: '', doc_type: 'MSA', status: 'Draft', doc_url: '', notes: ''
+  });
+
+  const handleAddClient = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    const { data, error } = await supabase.from('clients').insert([newClient]).select();
+    if (error) alert(error.message);
+    else {
+      setClients([data[0], ...clients]);
+      setShowAddClient(false);
+      setNewClient({ name: '', industry: '', contact_person: '', email: '', status: 'Lead', current_project: '', project_health: 'Good' });
+    }
+    setSaving(false);
+  };
+
+  const handleAddDoc = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    const { data, error } = await supabase.from('business_docs').insert([newDoc]).select();
+    if (error) alert(error.message);
+    else {
+      setDocs([data[0], ...docs]);
+      setShowAddDoc(false);
+      setNewDoc({ client_name: '', doc_type: 'MSA', status: 'Draft', doc_url: '', notes: '' });
+    }
+    setSaving(false);
+  };
 
   // Define Template Categories
   const templates = [
@@ -55,14 +93,13 @@ export default function BusinessVault() {
         </div>
         <div className="flex gap-4">
            {activeTab === 'clients' && (
-             <button className="btn-primary">
+             <button onClick={() => setShowAddClient(true)} className="btn-primary">
                 <Plus size={16} /> Add Partner
              </button>
            )}
-           <button className="flex items-center gap-2 px-4 py-2 bg-surface-light border border-surface-border rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-surface transition-colors shadow-sm">
-              <History size={14} /> Audit History
+           <button onClick={() => setShowAddDoc(true)} className="btn-primary">
+              <Plus size={16} /> New Engagement
            </button>
-        </div>
       </div>
 
       {/* Navigation Switchers */}
@@ -200,6 +237,144 @@ export default function BusinessVault() {
                 ))}
               </div>
            </div>
+        </div>
+      )}
+
+      {/* Add Client Modal */}
+      {showAddClient && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-background/90 backdrop-blur-xl animate-fade-in">
+          <div className="card w-full max-w-lg p-8 glow-border shadow-2xl relative">
+            <button 
+              onClick={() => setShowAddClient(false)}
+              className="absolute top-6 right-6 text-text-muted hover:text-text-primary"
+            >
+              ✕
+            </button>
+            <h3 className="text-xl font-bold mb-8 flex items-center gap-3">
+              <Users className="text-accent" /> Register New Partner
+            </h3>
+            <form onSubmit={handleAddClient} className="space-y-6">
+               <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="label">Partner Name</label>
+                    <input 
+                      required
+                      value={newClient.name}
+                      onChange={e => setNewClient({...newClient, name: e.target.value})}
+                      className="form-input" 
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Industry</label>
+                    <input 
+                      value={newClient.industry}
+                      onChange={e => setNewClient({...newClient, industry: e.target.value})}
+                      className="form-input" 
+                    />
+                  </div>
+               </div>
+               <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="label">Status</label>
+                    <select 
+                      value={newClient.status}
+                      onChange={e => setNewClient({...newClient, status: e.target.value})}
+                      className="form-input"
+                    >
+                       <option value="Lead">Lead</option>
+                       <option value="Active">Active</option>
+                       <option value="Support">Support</option>
+                       <option value="Completed">Completed</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="label">Project Health</label>
+                    <select 
+                      value={newClient.project_health}
+                      onChange={e => setNewClient({...newClient, project_health: e.target.value})}
+                      className="form-input"
+                    >
+                       <option value="Good">Healthy</option>
+                       <option value="At-Risk">At-Risk</option>
+                       <option value="Blocked">Blocked</option>
+                    </select>
+                  </div>
+               </div>
+               <div>
+                  <label className="label">Active Project Name</label>
+                  <input 
+                    value={newClient.current_project}
+                    onChange={e => setNewClient({...newClient, current_project: e.target.value})}
+                    placeholder="e.g. Asset Management System"
+                    className="form-input" 
+                  />
+               </div>
+               <button type="submit" disabled={saving} className="btn-primary w-full justify-center">
+                  {saving ? 'Registering...' : 'Complete Onboarding'}
+               </button>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* Add Document Modal */}
+      {showAddDoc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-background/90 backdrop-blur-xl animate-fade-in">
+          <div className="card w-full max-w-lg p-8 glow-border shadow-2xl relative">
+            <button onClick={() => setShowAddDoc(false)} className="absolute top-6 right-6 text-text-muted hover:text-text-primary">✕</button>
+            <h3 className="text-xl font-bold mb-8 flex items-center gap-3"><FileText className="text-secondary" /> Register Engagement</h3>
+            <form onSubmit={handleAddDoc} className="space-y-6">
+               <div>
+                  <label className="label">Client Name</label>
+                  <input 
+                    required
+                    value={newDoc.client_name}
+                    onChange={e => setNewDoc({...newDoc, client_name: e.target.value})}
+                    placeholder="e.g. PhMedtech Europe"
+                    className="form-input" 
+                  />
+               </div>
+               <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="label">Doc Type</label>
+                    <select 
+                      value={newDoc.doc_type}
+                      onChange={e => setNewDoc({...newDoc, doc_type: e.target.value})}
+                      className="form-input"
+                    >
+                       <option value="MSA">MSA (Master)</option>
+                       <option value="SDA">SDA (Delivery)</option>
+                       <option value="SLA">SLA (Support)</option>
+                       <option value="NDA">NDA</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="label">Status</label>
+                    <select 
+                      value={newDoc.status}
+                      onChange={e => setNewDoc({...newDoc, status: e.target.value})}
+                      className="form-input"
+                    >
+                       <option value="Draft">Draft</option>
+                       <option value="Review">In Review</option>
+                       <option value="Signed">Signed / Active</option>
+                       <option value="Expired">Expired</option>
+                    </select>
+                  </div>
+               </div>
+               <div>
+                  <label className="label">Document URL (PDF/Storage)</label>
+                  <input 
+                    value={newDoc.doc_url}
+                    onChange={e => setNewDoc({...newDoc, doc_url: e.target.value})}
+                    placeholder="https://..."
+                    className="form-input" 
+                  />
+               </div>
+               <button type="submit" disabled={saving} className="btn-primary w-full justify-center">
+                  {saving ? 'Registering...' : 'Add to Vault'}
+               </button>
+            </form>
+          </div>
         </div>
       )}
     </div>
