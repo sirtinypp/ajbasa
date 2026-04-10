@@ -100,6 +100,7 @@ export default function BusinessVault() {
            <button onClick={() => setShowAddDoc(true)} className="btn-primary">
               <Plus size={16} /> New Engagement
            </button>
+        </div>
       </div>
 
       {/* Navigation Switchers */}
